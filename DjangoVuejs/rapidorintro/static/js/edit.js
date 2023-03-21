@@ -3,7 +3,7 @@ new Vue({
     delimiters: ['[[', ']]'],
     data : {
         id         : '',
-        name       : '{{ customer.name }}',
+        name       : '',
         mobile     : '',
     },
     methods : {
@@ -22,4 +22,17 @@ new Vue({
             }
         },
     },
+    mounted(){
+        let urlToParse = window.location.href;
+        let index = urlToParse.lastIndexOf('/')
+        let param = urlToParse.slice(index+1);
+        let url = '/customer/fetchsingle_using_axios/'+param
+        axios.get(url).then((response) => {
+            let data = response.data
+            var customer = data.customers[0]
+            this.id     = customer.id
+            this.name   = customer.name
+            this.mobile = customer.mobile
+        })
+    }
 });

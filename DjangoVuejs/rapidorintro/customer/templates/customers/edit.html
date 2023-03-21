@@ -18,12 +18,12 @@
                     <div class="mb-3 mt-3 hidden">
                       <label for="id" class="form-label">Id:</label>
                       <input type="text" class="form-control" id="id" name="id"
-                      v-model:"id"  value="{{ customer.id }}" >
+                      v-model:"{{ id }}" >
                     </div>
                     <div class="mb-3 mt-3">
                       <label for="name" class="form-label">Name:</label>
                       <input type="text" class="form-control" id="name" placeholder="Enter Name" 
-                      :value="name" >
+                      v-model="name" >
                     </div>
                     <div class="mb-3">
                       <label for="mobile" class="form-label">Mobile:</label>
@@ -37,37 +37,9 @@
 
         </div>
 
-        
+        <script src="{% static 'axios/axios/dist/axios.min.js' %}" ></script> 
+        <script src="{% static 'vuejs/vue.js' %}" ></script> 
+        <script src="{% static 'js/edit.js' %}" ></script>  
     
     </body>
-    <script src="{% static 'axios/axios/dist/axios.min.js' %}" ></script> 
-    <script src="{% static 'vuejs/vue.js' %}" ></script> 
-    <script>
-    new Vue({
-      el   : '#vue-app-edit',
-      delimiters: ['[[', ']]'],
-      data : {
-          id         : '',
-          name       : '{{ customer.name }}',
-          mobile     : '',
-      },
-      methods : {
-          updatecustomer : function(){ 
-              if(this.name && this.mobile){
-                  let url = '/customer/editusingaxios'
-                  let body =  {
-                      'id'     : this.id,
-                      'name'   : this.name,
-                      'mobile' : this.mobile,
-                  }
-                  axios.post(url, body).then((response) => {
-                      let data = response.data
-                      alert(data.message)
-                  })
-              }
-          },
-      },
-  });
-</script>
-    
 </html>

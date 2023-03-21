@@ -1,3 +1,4 @@
+
 import json
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import redirect, render
@@ -40,9 +41,8 @@ def save(request):
     customers = Customer.objects.all().order_by('id')
     return render(request,'customers/fetch.html',{'customers': customers})
 
-def edit(request, id):  
-    customer = Customer.objects.get(id=id)  
-    return render(request,'customers/edit.html', {'customer': customer})  
+def edit(request, id):    
+    return render(request,'customers/edit.html', {'id': id})  
 
 def update(request, id):  
     customer = Customer.objects.get(id=id)  
@@ -118,13 +118,10 @@ def fetch_using_axios(request):
     return JsonResponse(response, safe=False)
 
 @csrf_exempt
-def fetchsingle_using_axios(request):
-    if request.method == "POST": 
+def fetchsingle_using_axios(request, id):
+    if request.method == "GET": 
         try:
-            body = json.loads(request.body)
-            cid= body.get('cid','')
-            customerobj = Customer.objects.get(id=cid)
-            print(customerobj)
+            customerobj = Customer.objects.get(id=id)
             customer = {}
             customer["id"] = customerobj.id
             customer["name"] = customerobj.name
@@ -144,11 +141,11 @@ def fetchsingle_using_axios(request):
 
 
 @csrf_exempt
-def delete_using_axios(request):
-    if request.method == "POST": 
+def delete_using_axios(request, id):
+    if request.method == "GET": 
         try:
-            body = json.loads(request.body)
-            id= body.get('cid','')
+            # body = json.loads(request.body)
+            # id= body.get('cid','')
             customer = Customer.objects.get(id=id)  
             customer.delete()   
             response = {"status": True, "code": 200, "message": "Customer Deleted successfully"}
