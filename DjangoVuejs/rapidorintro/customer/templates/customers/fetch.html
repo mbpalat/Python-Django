@@ -9,7 +9,7 @@
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}" type="js"></script>  
 </head>
     <body>
-        <div class="container-fluid">
+        <div id="vue-app-fetch" class="container-fluid">
         <h2 >Customers</h2>
 
         <table class="table table-stripped table-bordered table-responsive">  
@@ -23,26 +23,24 @@
             </tr>  
             </thead>  
             <tbody>  
-                {% for customer in customers %}  
-                <tr>  
-                    <td>{{ customer.id }}</td>  
-                    <td>{{ customer.name }}</td>  
-                    <td>{{ customer.mobile }}</td>   
+                <tr v-for="customer in customers">  
+                    <td>[[ customer.id ]]</td>  
+                    <td>[[ customer.name ]]</td>  
+                    <td>[[ customer.mobile ]]</td>   
                     <td>  
-                        <a class="btn btn-secondary" href="/customer/edit/{{ customer.id}}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>  
+                        {% comment %} <a class="btn btn-secondary" href="/customer/edit/[[ customer.id ]]"><span class="glyphicon glyphicon-pencil" >Edit</span></a>   {% endcomment %}
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="delete/{{ customer.id }}">Delete</a>  
+                        <button class="btn btn-danger" v-on:click="deletecustomer([[customer.id]])">Delete</button>  
                     </td>  
-                </tr>  
-            {% endfor %}  
+                </tr>   
             </tbody>  
         </table>  
         </div>
 
         <script src="{% static 'axios/axios/dist/axios.min.js' %}" ></script> 
         <script src="{% static 'vuejs/vue.js' %}" ></script> 
-        <script src="{% static 'js/create.js' %}" ></script>   
+        <script src="{% static 'js/fetch.js' %}" ></script>   
  
     </body>
 </html>

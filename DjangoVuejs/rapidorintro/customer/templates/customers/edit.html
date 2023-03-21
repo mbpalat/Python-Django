@@ -13,30 +13,61 @@
         <h2>Customers ( Update )</h2>
         
         <div id="vue-app-edit" class="form">
-        <form method="post" class="post-form">
-            {% csrf_token %}   
-                  <input type="text" class="form-control" id="id" name="id"
-                  v-model:"id"  value="{{ customer.id }}" style="display: none;">
-                <div class="mb-3 mt-3">
-                  <label for="name" class="form-label">Name:</label>
-                  <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name"
-                  v-model:"name"  value="{{ customer.name }}">
-                </div>
-                <div class="mb-3">
-                  <label for="mobile" class="form-label">Mobile:</label>
-                  <input type="text" class="form-control" id="mobile" placeholder="Enter mobile" name="mobile"
-                  v-model="mobile" value="{{ customer.mobile }}">
-                </div>
+            <form method="post" class="post-form">
+                {% csrf_token %}   
+                    <div class="mb-3 mt-3 hidden">
+                      <label for="id" class="form-label">Id:</label>
+                      <input type="text" class="form-control" id="id" name="id"
+                      v-model:"id"  value="{{ customer.id }}" >
+                    </div>
+                    <div class="mb-3 mt-3">
+                      <label for="name" class="form-label">Name:</label>
+                      <input type="text" class="form-control" id="name" placeholder="Enter Name" 
+                      :value="name" >
+                    </div>
+                    <div class="mb-3">
+                      <label for="mobile" class="form-label">Mobile:</label>
+                      <input type="text" class="form-control" id="mobile" placeholder="Enter mobile" name="mobile"
+                      v-model="mobile" value="{{ customer.mobile }}">
+                    </div>
 
-        </form>
-        <button  class="btn btn-primary" v-on:click="updatecustomer">Update</button>
+            </form>
+            <button  class="btn btn-primary" v-on:click="updatecustomer">Update</button>
         </div>
 
         </div>
 
-        <script src="{% static 'axios/axios/dist/axios.min.js' %}" ></script> 
-        <script src="{% static 'vuejs/vue.js' %}" ></script> 
-        <script src="{% static 'js/create.js' %}" ></script>   
+        
     
     </body>
+    <script src="{% static 'axios/axios/dist/axios.min.js' %}" ></script> 
+    <script src="{% static 'vuejs/vue.js' %}" ></script> 
+    <script>
+    new Vue({
+      el   : '#vue-app-edit',
+      delimiters: ['[[', ']]'],
+      data : {
+          id         : '',
+          name       : '{{ customer.name }}',
+          mobile     : '',
+      },
+      methods : {
+          updatecustomer : function(){ 
+              if(this.name && this.mobile){
+                  let url = '/customer/editusingaxios'
+                  let body =  {
+                      'id'     : this.id,
+                      'name'   : this.name,
+                      'mobile' : this.mobile,
+                  }
+                  axios.post(url, body).then((response) => {
+                      let data = response.data
+                      alert(data.message)
+                  })
+              }
+          },
+      },
+  });
+</script>
+    
 </html>

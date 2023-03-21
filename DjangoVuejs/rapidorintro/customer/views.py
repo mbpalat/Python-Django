@@ -64,36 +64,96 @@ def destroy(request, id):
 
 @csrf_exempt
 def save_using_axios(request):
-    try:
-        body = json.loads(request.body)
-        # name = body.get('name','')
-        # mobile = body.get('mobile','')
-        # customer = Customer()
-        # customer.name = name
-        # customer.mobile = mobile
-        # customer.save()    
-        Customer.objects.create(**body)
-        response = {"status": True, "code": 200, "message": "Customer saved successfully"}
-    except Exception as e:
-        print(e)
-        response = {"status": False, "code": 500, "message": "Internal Server Error"}
+    if request.method == "POST":  
+        try:
+            body = json.loads(request.body)
+            # name = body.get('name','')
+            # mobile = body.get('mobile','')
+            # customer = Customer()
+            # customer.name = name
+            # customer.mobile = mobile
+            # customer.save()    
+            Customer.objects.create(**body)
+            response = {"status": True, "code": 200, "message": "Customer saved successfully"}
+        except Exception as e:
+            print(e)
+            response = {"status": False, "code": 500, "message": "Internal Server Error"}
     return JsonResponse(response, safe=False)
 
 @csrf_exempt
 def edit_using_axios(request):
-    try:
-        body = json.loads(request.body)
-        id= body.get('id','')
-        customer = Customer.objects.get(id=id)  
-        # name = body.get('name','')
-        # mobile = body.get('mobile','')
-        # customer = Customer()
-        # customer.name = name
-        # customer.mobile = mobile
-        # customer.save()    
-        Customer.objects.update(**body)
-        response = {"status": True, "code": 200, "message": "Customer Updated successfully"}
-    except Exception as e:
-        print(e)
-        response = {"status": False, "code": 500, "message": "Internal Server Error"}
+    if request.method == "POST": 
+        print("edit")
+        try:
+            body = json.loads(request.body)
+            id= body.get('id','')
+            customer = Customer.objects.get(id=id)  
+            name = body.get('name','')
+            mobile = body.get('mobile','')
+            customer.name = name
+            customer.mobile = mobile
+            customer.save()    
+            # customer.update(**body)
+            response = {"status": True, "code": 200, "message": "Customer Updated successfully"}
+        except Exception as e:
+            print(e)
+            response = {"status": False, "code": 500, "message": "Internal Server Error"}
     return JsonResponse(response, safe=False)
+
+
+@csrf_exempt
+def fetch_using_axios(request):
+    if request.method == "GET": 
+        try:
+            customers = list(Customer.objects.all().order_by('id').values('id', 'name', 'mobile'))
+            response = {
+                        "status": True, 
+                        "code": 200,
+                        "message": "Customer List Fetched Successfully",
+                        "customerlist": customers,
+                        }
+        except Exception as e:
+            print(e)
+            response = {"status": False, "code": 500, "message": "Internal Server Error"}
+    return JsonResponse(response, safe=False)
+
+@csrf_exempt
+def fetchsingle_using_axios(request):
+    if request.method == "POST": 
+        try:
+            body = json.loads(request.body)
+            cid= body.get('cid','')
+            customerobj = Customer.objects.get(id=cid)
+            print(customerobj)
+            customer = {}
+            customer["id"] = customerobj.id
+            customer["name"] = customerobj.name
+            customer["mobile"] = customerobj.mobile
+            response = {
+                        "status": True, 
+                        "code": 200,
+                        "message": "Customer Fetched Successfully",
+                        "customers": [],
+                        }
+            response["customers"].append(customer)
+            print(response)
+        except Exception as e:
+            print(e)
+            response = {"status": False, "code": 500, "message": "Internal Server Error"}
+    return JsonResponse(response, safe=False)
+
+
+@csrf_exempt
+def delete_using_axios(request):
+    if request.method == "POST": 
+        try:
+            body = json.loads(request.body)
+            id= body.get('cid','')
+            customer = Customer.objects.get(id=id)  
+            customer.delete()   
+            response = {"status": True, "code": 200, "message": "Customer Deleted successfully"}
+        except Exception as e:
+            print(e)
+            response = {"status": False, "code": 500, "message": "Internal Server Error"}
+    return JsonResponse(response, safe=False)
+

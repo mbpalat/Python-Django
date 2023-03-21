@@ -4,3 +4,7 @@
     border : 2px solid rgb(228, 220, 220);
     border-radius : 10px;
 }
+
+.hidden{
+    display : none;
+}

@@ -15,7 +15,8 @@ urlpatterns = [
         
         path('saveusingaxios', views.save_using_axios),  
         path('editusingaxios', views.edit_using_axios),  
-        path('fetchusingaxios', views.save_using_axios),  
-        path('deleteusingaxios', views.save_using_axios),  
+        path('fetchusingaxios', views.fetch_using_axios),
+        path('fetchsingle_using_axios', views.fetchsingle_using_axios),  
+        path('deleteusingaxios', views.delete_using_axios),  
 
 ]

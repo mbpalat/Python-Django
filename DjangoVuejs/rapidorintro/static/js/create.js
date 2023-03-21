@@ -1,5 +1,5 @@
 
-var create = new Vue({    
+let create = new Vue({    
     el   : '#vue-app-create',
     delimiters: ['[[', ']]'],
     data : {
@@ -16,7 +16,7 @@ var create = new Vue({
                 }
                 axios.post(url, body).then((response) => {
                     let data = response.data
-                    console.log(data)
+                    alert(data.message)
                 })
             }
         },
