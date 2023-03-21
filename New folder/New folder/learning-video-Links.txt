@@ -6,3 +6,20 @@ https://www.youtube.com/watch?v=qoSksQ4s_hg&list=PL4cUxeGkcC9i9Ae2D9Ee1RvylH38dK
 
 Modern Javascript
 https://www.youtube.com/playlist?list=PL4cUxeGkcC9haFPT7J25Q9GRB_ZkFrQAc
+
+
+git init
+git add .
+git commit -m "msg"
+git status
+git config --global --add safe.directory '*'
+git remote add origin "https://github.com/mbpalat/Python-Django.git"
+git remote -v
+
+git branch branch-name
+git switch branch name                             or 
+git checkout branch-name
+
+git push –u origin <branch name>                  or
+git push –f origin <branch name>                  or
+git push origin <branch name>
