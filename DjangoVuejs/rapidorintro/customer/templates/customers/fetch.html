@@ -85,7 +85,8 @@
 
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> {% endcomment %}
+        <script src="{% static 'jquery/jquery.js' %}" ></script> 
         <script src="{% static 'axios/axios/dist/axios.min.js' %}" ></script> 
         <script src="{% static 'vuejs/vue.js' %}" ></script> 
         <script src="{% static 'js/fetch.js' %}" ></script>   

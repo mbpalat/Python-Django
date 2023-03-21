@@ -9,7 +9,6 @@
     display : none;
 }
 
-.modal{
-    box-shadow: 5px 10px #888888;
-    background-color :rgb(228, 220, 220)
+.modal div{
+    opacity : 1;
 }
