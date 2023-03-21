@@ -1,0 +1,153 @@
+
+Hello Python
+
+
+pip freeze
+pip install django 
+
+create project
+
+django-admin startproject djangonautics
+
+go inside djangonautics folder and -->
+
+to run ->> 
+python manage.py runserver
+
+sub apps - (eg - articles )
+python manage.py startapp articles
+
+migrate
+python manage.py migrate
+
+make migrations
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py shell
+
+
+from articles.models import Article
+
+Article
+
+Article.objects.all()
+article = Article()
+article
+article.title = "hello, world"
+article.title
+"hello, world"
+article.save()
+Article.objects.all()
+Article.objects.all()[0].title
+
+ctrl + z
+
+
+ORM Database - console
+
+
+D:\Django\Django\djangonautic>python manage.py shell
+Python 3.11.2 (tags/v3.11.2:878ead1, Feb  7 2023, 16:38:35) [MSC v.1934 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from articles.models import Articles
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+ImportError: cannot import name 'Articles' from 'articles.models' (D:\Django\Django\djangonautic\articles\models.py)
+>>> from articles.models import Article
+>>> Article
+<class 'articles.models.Article'>
+>>> Article.objects.all()
+<QuerySet []>
+>>> article = Article()
+>>> article
+<Article: Article object (None)>
+>>> article.title = "hello, world"
+>>> article
+<Article: Article object (None)>
+>>> article.title
+'hello, world'
+>>> article.save()
+>>> Article.objects.all()
+<QuerySet [<Article: Article object (1)>]>
+>>> Article.objects.all()[0].title
+'hello, world'
+>>>
+
+
+from articles.models import Article
+
+
+axios
+
+axios({
+  method: 'post',
+  url: '/login',
+  data: {
+    firstName: 'Finn',
+    lastName: 'Williams'
+  }
+});
+
+
+
+axios.get('/user', {
+    params: {
+      ID: 12345
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+
+
+http : ajax
+
+ post : function(){
+        alert('post');
+         this.$http.post('https://jsonplaceholder.typicode.com/posts',{
+            title  : this.title,
+            body   : this.content,
+            userId : 1
+         }).then(function(data){
+            alert(data);
+            console.log(data);
+         });
+       },
+ get : function(){
+        this.$http.get('https://jsonplaceholder.typicode.com/posts').then(function(data){
+            console.log(data);
+         });
+       }
+
+
+install mysql
+
+pip install mysql-python
+apt-get install libmysqlclient-dev
+pip install mysqlclient
+
+
+to collect static files 
+
+python manage.py collectstatic
+
+settings.py
+
+STATIC_ROOT = ''
+
+STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = (
+
+    ('assets', os.path.join(PROJECT_DIR, '../static')),
+)
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
+
+

@@ -1,4 +1,4 @@
-new Vue({
+let edit = new Vue({
     el   : '#vue-app-edit',
     delimiters: ['[[', ']]'],
     data : {

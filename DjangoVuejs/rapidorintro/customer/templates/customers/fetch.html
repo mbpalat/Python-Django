@@ -23,12 +23,14 @@
             </tr>  
             </thead>  
             <tbody>  
-                <tr v-for="customer in customers">  
-                    <td>[[ customer.id ]]</td>  
+                <tr v-for="customer in customers" >  
+                    <td >[[ customer.id ]]</td>  
                     <td>[[ customer.name ]]</td>  
                     <td>[[ customer.mobile ]]</td>   
-                    <td>  
-                        <a class="btn btn-secondary" v-bind:href="'/customer/edit/'+[[customer.id]]"><span class="glyphicon glyphicon-pencil" >Edit</span></a>  
+                    <td>
+                        {% comment %} For Page Edit   {% endcomment %}
+                        {% comment %} <a class="btn btn-secondary" v-bind:href="'/customer/edit/'+[[customer.id]]"><span class="glyphicon glyphicon-pencil" >Edit</span></a>   {% endcomment %}
+                        <button class="btn btn-secondary" v-on:click="showmodal([[customer.id]])">Edit</button>
                     </td>
                     <td>
                         <button class="btn btn-danger" v-on:click="deletecustomer([[customer.id]])">Delete</button>  
@@ -36,8 +38,54 @@
                 </tr>   
             </tbody>  
         </table>  
+        
+        <!-- The Modal -->
+        <div class="modal hidden" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+        
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Customer</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" v-on:click="hidemodal"></button>
+              </div>
+        
+              <!-- Modal body -->
+              <div class="modal-body">
+                        <form method="post" class="post-form">
+                            {% csrf_token %}   
+                                <div class="mb-3 mt-3 hidden">
+                                <label for="id" class="form-label">Id:</label>
+                                <input type="text" class="form-control" id="id" name="id"
+                                v-model:"id" >
+                                </div>
+                                <div class="mb-3 mt-3">
+                                <label for="name" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter Name" 
+                                v-model="name" >
+                                </div>
+                                <div class="mb-3">
+                                <label for="mobile" class="form-label">Mobile:</label>
+                                <input type="text" class="form-control" id="mobile" placeholder="Enter mobile"
+                                name="mobile" v-model="mobile">
+                                </div>
+            
+                        </form>
+                           
+                </div>
+        
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                   <button  class="btn btn-primary" v-on:click="updatecustomer">Update</button>
+              </div>
+        
+            </div>
+          </div>
+        </div>  
+
         </div>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <script src="{% static 'axios/axios/dist/axios.min.js' %}" ></script> 
         <script src="{% static 'vuejs/vue.js' %}" ></script> 
         <script src="{% static 'js/fetch.js' %}" ></script>   
