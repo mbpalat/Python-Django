@@ -23,3 +23,5 @@ git checkout branch-name
 git push –u origin <branch name>                  or
 git push –f origin <branch name>                  or
 git push origin <branch name>
+
+git push -u origin main
